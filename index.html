@@ -1,1163 +1,867 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>EGK High Speed Rail</title>
+<title>EGK Scientific Series — Earth's Forces, Decoded</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@700;800&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;600;700&display=swap');
-
-:root {
-–sky-top: #0a0e1a;
-–sky-mid: #1a2a4a;
-–sky-low: #2a4a7a;
-–horizon: #4a7aaa;
-–ground: #1a1a2a;
-–rail-silver: #8899aa;
-–egk-blue: #0055cc;
-–egk-orange: #ff6600;
-–egk-white: #f0f4ff;
-–glass-tint: rgba(180,220,255,0.15);
-–speed-glow: rgba(0,120,255,0.6);
+:root{
+  --void:    #020508;
+  --deep:    #050C16;
+  --navy:    #080F22;
+  --storm:   #0A1530;
+  --sky:     #0A4080;
+  --blue:    #1060D0;
+  --cyan:    #00CCFF;
+  --teal:    #00E8C8;
+  --electric:#4DFFEE;
+  --orange:  #FF7800;
+  --amber:   #FFB400;
+  --yellow:  #FFE040;
+  --red:     #FF3030;
+  --purple:  #8855FF;
+  --green:   #00FF88;
+  --white:   #FFFFFF;
+  --silver:  #8BAABB;
+  --muted:   #3A5568;
+  --card:    rgba(255,255,255,0.04);
+  --border:  rgba(0,200,255,0.14);
 }
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'Space Grotesk',sans-serif;background:var(--void);color:var(--silver);overflow-x:hidden;}
 
-- { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-background: var(–sky-top);
-overflow: hidden;
-font-family: ‘Rajdhani’, sans-serif;
-height: 100vh;
-width: 100vw;
-position: relative;
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:999;
+  background:rgba(2,5,8,.97);backdrop-filter:blur(16px);
+  padding:11px 32px;border-bottom:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
 }
+.nav-brand{display:flex;align-items:center;gap:10px;}
+.nav-brand img.logo{height:32px;border-radius:6px;}
+.nav-brand-text{font-family:'Orbitron',monospace;color:var(--cyan);font-size:.8rem;font-weight:700;letter-spacing:1px;}
+.nav-links{display:flex;gap:4px;list-style:none;align-items:center;}
+.nav-links a{color:var(--silver);text-decoration:none;font-size:.78rem;font-weight:600;padding:5px 11px;border-radius:7px;transition:all .2s;}
+.nav-links a:hover{background:rgba(0,200,255,.1);color:var(--cyan);}
+.nav-cta{background:linear-gradient(135deg,#0A4080,#0055CC) !important;color:white !important;font-weight:700 !important;}
 
-/* ── SKY GRADIENT ── */
-.sky {
-position: absolute;
-inset: 0;
-background: linear-gradient(
-180deg,
-#040810 0%,
-#0a1828 25%,
-#102040 50%,
-#1a3860 65%,
-#2a5080 75%,
-#3a6898 82%,
-#5888b8 90%,
-#7aaar0 95%
-);
-background: linear-gradient(
-180deg,
-#040810 0%,
-#0a1828 20%,
-#112244 45%,
-#1e4070 62%,
-#2e5888 72%,
-#4878a8 82%,
-#6898c8 90%,
-#88b8d8 96%,
-#aad0e8 100%
-);
+/* HERO */
+#hero{
+  min-height:100vh;position:relative;overflow:hidden;
+  display:flex;align-items:center;
+  padding:110px 36px 80px;
+  background:radial-gradient(ellipse 100% 80% at 50% 20%,rgba(10,64,128,.2) 0%,transparent 60%),
+             linear-gradient(180deg,#020508 0%,#050C16 100%);
 }
-
-/* ── STARS ── */
-.stars {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 60%;
-overflow: hidden;
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;}
+.hero-inner{
+  max-width:1200px;margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:60px;align-items:center;position:relative;z-index:2;
 }
+@keyframes fadeup{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes musf{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-14px) rotate(2deg)}}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
 
-.star {
-position: absolute;
-background: white;
-border-radius: 50%;
-animation: twinkle 3s infinite alternate;
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(0,200,255,.3);background:rgba(0,200,255,.07);
+  color:var(--cyan);font-size:.7rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;
+  padding:4px 16px;border-radius:50px;margin-bottom:18px;
 }
-
-@keyframes twinkle {
-0% { opacity: 0.2; transform: scale(1); }
-100% { opacity: 1; transform: scale(1.3); }
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--cyan);animation:blink 1.4s infinite;}
+.hero-title{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(2rem,4.5vw,3.8rem);
+  color:var(--white);line-height:1.08;margin-bottom:12px;
+  animation:fadeup .7s ease both;
 }
+.hero-title .cyan{color:var(--cyan);}
+.hero-title .amber{color:var(--amber);}
+.hero-sub{font-size:1rem;color:var(--silver);margin-bottom:24px;line-height:1.8;animation:fadeup .7s .1s ease both;}
+.hero-btns{display:flex;flex-wrap:wrap;gap:10px;animation:fadeup .7s .2s ease both;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:11px 22px;border-radius:50px;font-family:'Space Grotesk',sans-serif;font-size:.85rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:all .22s;}
+.btn-cyan{background:linear-gradient(135deg,var(--cyan),var(--teal));color:#020508;box-shadow:0 6px 22px rgba(0,200,255,.35);}
+.btn-cyan:hover{transform:translateY(-2px);}
+.btn-amber{background:linear-gradient(135deg,var(--amber),var(--orange));color:#200A00;box-shadow:0 6px 22px rgba(255,180,0,.3);}
+.btn-amber:hover{transform:translateY(-2px);}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--white);border:1.5px solid rgba(255,255,255,.18);}
+.btn-ghost:hover{background:rgba(255,255,255,.12);}
+.hero-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:18px;animation:fadeup .7s .3s ease both;}
+.htag{background:rgba(255,255,255,.04);border:1px solid rgba(0,200,255,.15);color:var(--muted);font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:50px;}
 
-/* ── MOUNTAINS ── */
-.mountains-far {
-position: absolute;
-bottom: 30%;
-width: 100%;
-height: 22%;
-overflow: hidden;
+/* hero right — mushi + globe info */
+.hero-right{text-align:center;position:relative;}
+.hero-mushi{width:clamp(130px,16vw,180px);filter:drop-shadow(0 12px 32px rgba(0,200,255,.35));animation:musf 4s ease-in-out infinite;display:block;margin:0 auto 16px;}
+.hero-globe-note{background:rgba(0,200,255,.06);border:1px solid var(--border);border-radius:16px;padding:16px 18px;text-align:left;}
+.hgn-title{font-family:'Orbitron',monospace;font-size:.7rem;font-weight:700;color:var(--cyan);margin-bottom:8px;letter-spacing:1px;text-transform:uppercase;}
+.hgn-row{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--silver);margin-bottom:5px;}
+.hgn-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+
+/* STATS STRIP */
+.sstrip{background:rgba(0,200,255,.05);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:14px 24px;position:relative;z-index:2;}
+.sstrip-inner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;}
+.ss{text-align:center;flex:1;min-width:120px;padding:5px 16px;border-right:1px solid var(--border);}
+.ss:last-child{border-right:none;}
+.ss-n{font-family:'Orbitron',monospace;font-size:1.3rem;font-weight:900;color:var(--cyan);display:block;}
+.ss-l{font-size:.65rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.8px;}
+
+/* SECTIONS */
+section{position:relative;z-index:1;padding:76px 24px;}
+.container{max-width:1140px;margin:0 auto;}
+.sec-label{display:inline-flex;align-items:center;gap:7px;font-size:.68rem;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:10px;}
+.sec-label::before{content:'';width:14px;height:1.5px;background:var(--cyan);display:inline-block;}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.5rem,3vw,2.5rem);font-weight:800;color:var(--white);line-height:1.18;margin-bottom:12px;}
+.sec-title span{color:var(--cyan);}
+.sec-title .amber{color:var(--amber);}
+.sec-desc{font-size:.93rem;color:var(--silver);line-height:1.8;max-width:640px;}
+.text-center{text-align:center;margin:0 auto;}
+
+/* APPS GRID */
+#apps{background:linear-gradient(180deg,var(--void),var(--deep));}
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px;margin-top:44px;}
+.app-card{
+  background:var(--card);border:1px solid var(--border);border-radius:18px;
+  padding:24px 20px;transition:all .32s;position:relative;overflow:hidden;
 }
+.app-card::before{content:'';position:absolute;inset:0;opacity:0;transition:opacity .32s;
+  background:radial-gradient(ellipse at top left,rgba(0,200,255,.1) 0%,transparent 70%);}
+.app-card:hover{transform:translateY(-7px);border-color:rgba(0,200,255,.45);box-shadow:0 20px 56px rgba(0,0,0,.5);}
+.app-card:hover::before{opacity:1;}
+.app-card-top{display:flex;gap:14px;align-items:flex-start;margin-bottom:14px;}
+.app-icon{width:62px;height:62px;border-radius:16px;object-fit:cover;box-shadow:0 6px 20px rgba(0,0,0,.5);flex-shrink:0;transition:transform .3s;}
+.app-card:hover .app-icon{transform:scale(1.08) rotate(-3deg);}
+.app-cat{font-size:.65rem;font-weight:800;padding:2px 10px;border-radius:50px;margin-bottom:5px;display:inline-block;letter-spacing:.8px;text-transform:uppercase;}
+.cat-geo{background:rgba(255,120,0,.15);color:var(--orange);border:1px solid rgba(255,120,0,.3);}
+.cat-climate{background:rgba(0,200,255,.12);color:var(--cyan);border:1px solid rgba(0,200,255,.3);}
+.cat-storm{background:rgba(136,85,255,.15);color:var(--purple);border:1px solid rgba(136,85,255,.3);}
+.cat-space{background:rgba(0,255,136,.1);color:var(--green);border:1px solid rgba(0,255,136,.25);}
+.app-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:800;color:var(--white);line-height:1.2;margin-bottom:2px;}
+.app-series{font-size:.7rem;color:var(--muted);font-weight:600;}
+.app-desc{font-size:.8rem;color:var(--silver);line-height:1.65;margin-bottom:14px;}
+.app-feats{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px;}
+.af{font-size:.67rem;font-weight:700;padding:2px 9px;border-radius:50px;background:rgba(255,255,255,.06);color:var(--silver);border:1px solid rgba(255,255,255,.1);}
+.app-dl{display:flex;gap:7px;}
+.dl-btn{display:inline-flex;align-items:center;gap:5px;padding:7px 14px;border-radius:8px;font-size:.74rem;font-weight:700;text-decoration:none;transition:all .2s;background:rgba(255,255,255,.07);color:var(--silver);border:1px solid rgba(255,255,255,.12);}
+.dl-btn:hover{background:var(--cyan);color:#020508;border-color:var(--cyan);}
+.app-glow{position:absolute;top:-20px;right:-20px;width:100px;height:100px;border-radius:50%;filter:blur(40px);pointer-events:none;opacity:.25;}
 
-.mountains-far svg {
-position: absolute;
-bottom: 0;
-width: 100%;
-height: 100%;
+/* MUSHI SECTION */
+#mushi-section{background:linear-gradient(135deg,var(--deep),var(--storm));text-align:center;padding:64px 24px;overflow:hidden;position:relative;}
+.ms-inner{max-width:720px;margin:0 auto;position:relative;z-index:2;}
+.ms-mushi{width:clamp(110px,15vw,160px);animation:musf 4s ease-in-out infinite;filter:drop-shadow(0 12px 28px rgba(0,200,255,.3));margin:0 auto 18px;display:block;}
+.ms-quote{font-family:'Syne',sans-serif;font-size:clamp(1.05rem,2.5vw,1.4rem);color:var(--white);line-height:1.65;margin-bottom:12px;}
+.ms-quote .cyan{color:var(--cyan);}.ms-quote .amber{color:var(--amber);}
+.ms-bg-blob{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.15;}
+.mblob1{width:400px;height:400px;background:var(--blue);top:-100px;left:-100px;}
+.mblob2{width:300px;height:300px;background:var(--purple);bottom:-60px;right:-60px;}
+
+/* SCIENCE FACTS */
+#facts{background:var(--deep);}
+.facts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-top:40px;}
+.fact{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:18px 16px;transition:transform .25s;}
+.fact:hover{transform:translateY(-4px);}
+.fact-icon{font-size:1.8rem;margin-bottom:8px;}
+.fact-n{font-family:'Orbitron',monospace;font-size:1.2rem;font-weight:900;color:var(--amber);display:block;margin-bottom:4px;}
+.fact-l{font-size:.78rem;color:var(--white);font-weight:700;margin-bottom:4px;}
+.fact-body{font-size:.73rem;color:var(--silver);line-height:1.5;}
+
+/* ABOUT EGK */
+#about-egk{background:linear-gradient(180deg,var(--deep),var(--void));}
+.about-grid{display:grid;grid-template-columns:280px 1fr;gap:52px;align-items:start;margin-top:44px;}
+.about-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:28px 22px;text-align:center;position:relative;overflow:hidden;}
+.about-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--amber));}
+.ac-mushi{width:80px;margin:0 auto 12px;display:block;animation:musf 4.5s ease-in-out infinite;filter:drop-shadow(0 8px 16px rgba(0,200,255,.25));}
+.ac-name{font-family:'Orbitron',monospace;font-size:.9rem;font-weight:800;color:var(--white);margin-bottom:3px;}
+.ac-role{font-size:.75rem;color:var(--cyan);}
+.ac-co{font-size:.7rem;color:var(--silver);margin-top:2px;}
+.ac-logo{height:32px;margin:12px auto 0;display:block;border-radius:5px;}
+.ac-contacts{display:flex;flex-direction:column;gap:6px;margin-top:14px;}
+.aci{display:flex;align-items:center;gap:7px;font-size:.74rem;color:var(--silver);}
+.about-text blockquote{border-left:3px solid var(--cyan);padding:14px 18px;background:rgba(0,200,255,.05);border-radius:0 10px 10px 0;font-style:italic;font-size:.93rem;color:#CBD5E1;line-height:1.8;margin-bottom:16px;}
+.about-text p{font-size:.86rem;color:var(--silver);line-height:1.8;margin-bottom:12px;}
+.app-pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px;}
+.ap{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:var(--silver);font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:50px;}
+
+/* FOOTER */
+footer{background:#010305;border-top:1px solid var(--border);padding:44px 24px 20px;}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:36px;padding-bottom:26px;border-bottom:1px solid var(--border);}
+.fl img{height:34px;margin-bottom:10px;}
+.fa{font-size:.76rem;line-height:1.75;color:#1A3040;}
+.ft{font-size:.7rem;font-weight:800;color:var(--silver);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;}
+.fl-links{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.fl-links a{color:#1A3040;text-decoration:none;font-size:.74rem;transition:color .2s;}
+.fl-links a:hover{color:var(--cyan);}
+.fb{max-width:1100px;margin:12px auto 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;font-size:.68rem;color:#0E1F2A;}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(20px);transition:all .65s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .hero-inner,.about-grid,.footer-inner{grid-template-columns:1fr;}
+  .hero-right{margin-top:20px;}
+  nav{padding:10px 16px;}
+  .nav-links{display:none;}
 }
-
-.mountains-mid {
-position: absolute;
-bottom: 28%;
-width: 200%;
-height: 18%;
-animation: slideMtnMid 30s linear infinite;
-}
-
-.mountains-mid svg {
-position: absolute;
-bottom: 0;
-width: 50%;
-height: 100%;
-}
-.mountains-mid svg:nth-child(2) { left: 50%; }
-
-@keyframes slideMtnMid {
-0% { transform: translateX(0); }
-100% { transform: translateX(-50%); }
-}
-
-/* ── GROUND ── */
-.ground {
-position: absolute;
-bottom: 0;
-width: 100%;
-height: 30%;
-background: linear-gradient(
-180deg,
-#1e2838 0%,
-#151d28 30%,
-#0e1520 100%
-);
-border-top: 2px solid rgba(100,140,180,0.3);
-}
-
-/* ── HORIZON GLOW ── */
-.horizon-glow {
-position: absolute;
-bottom: 29%;
-width: 100%;
-height: 8%;
-background: linear-gradient(
-180deg,
-transparent 0%,
-rgba(80,140,200,0.15) 40%,
-rgba(100,160,220,0.35) 70%,
-rgba(120,180,240,0.5) 100%
-);
-}
-
-/* ── RAIL TRACKS ── */
-.tracks {
-position: absolute;
-bottom: 0;
-left: 0;
-width: 100%;
-height: 30%;
-perspective: 600px;
-perspective-origin: 50% 0%;
-}
-
-.track-svg {
-position: absolute;
-bottom: 0;
-width: 100%;
-height: 100%;
-}
-
-/* ── SPEED LINES (background) ── */
-.speed-lines {
-position: absolute;
-top: 0; left: 0;
-width: 100%; height: 100%;
-overflow: hidden;
-pointer-events: none;
-}
-
-.speed-line {
-position: absolute;
-height: 1px;
-background: linear-gradient(90deg, transparent, rgba(100,160,255,0.4), transparent);
-animation: speedLine 0.6s linear infinite;
-transform-origin: right center;
-}
-
-@keyframes speedLine {
-0% { transform: scaleX(0); opacity: 0; right: 0; }
-20% { opacity: 1; }
-80% { opacity: 0.6; }
-100% { transform: scaleX(1); opacity: 0; right: 100%; }
-}
-
-/* ── TRAIN WRAPPER ── */
-.train-scene {
-position: absolute;
-bottom: 22%;
-left: 0;
-width: 100%;
-height: 38%;
-overflow: visible;
-}
-
-/* ── TRAIN CONTAINER ── */
-.train {
-position: absolute;
-bottom: 0;
-left: 50%;
-transform: translateX(-50%);
-display: flex;
-align-items: flex-end;
-filter: drop-shadow(0 0 30px rgba(0,80,200,0.8)) drop-shadow(0 0 60px rgba(0,60,160,0.4));
-animation: trainFloat 4s ease-in-out infinite;
-}
-
-@keyframes trainFloat {
-0%, 100% { transform: translateX(-50%) translateY(0px); }
-50% { transform: translateX(-50%) translateY(-3px); }
-}
-
-/* ── LOCOMOTIVE (EUROSTAR STYLE) ── */
-.loco {
-position: relative;
-width: 260px;
-height: 110px;
-flex-shrink: 0;
-}
-
-.loco svg {
-width: 100%;
-height: 100%;
-overflow: visible;
-}
-
-/* ── CARGO CARS ── */
-.car {
-position: relative;
-height: 90px;
-flex-shrink: 0;
-margin-left: -2px;
-}
-
-.car svg {
-height: 100%;
-overflow: visible;
-}
-
-/* ── PASSENGER CARS ── */
-.pax {
-position: relative;
-height: 88px;
-flex-shrink: 0;
-margin-left: -2px;
-}
-
-.pax svg {
-height: 100%;
-overflow: visible;
-}
-
-/* ── TAIL ── */
-.tail {
-position: relative;
-width: 140px;
-height: 100px;
-flex-shrink: 0;
-margin-left: -2px;
-}
-
-.tail svg {
-width: 100%;
-height: 100%;
-overflow: visible;
-}
-
-/* ── WHEEL ANIMATION ── */
-.wheel-spin {
-animation: spin 0.3s linear infinite;
-transform-origin: center;
-}
-
-@keyframes spin {
-100% { transform: rotate(360deg); }
-}
-
-/* ── PANTOGRAPH SPARK ── */
-.spark {
-position: absolute;
-top: 8px;
-right: 80px;
-width: 20px;
-height: 20px;
-animation: spark 0.15s linear infinite alternate;
-}
-
-@keyframes spark {
-0% { opacity: 1; transform: scale(1) rotate(0deg); }
-100% { opacity: 0.4; transform: scale(1.5) rotate(45deg); }
-}
-
-/* ── MOTION BLUR STREAKS on train ── */
-.motion-blur {
-position: absolute;
-right: 100%;
-bottom: 15px;
-height: 60px;
-width: 300px;
-background: linear-gradient(90deg, transparent 0%, rgba(0,80,200,0.12) 50%, rgba(0,80,200,0.3) 100%);
-clip-path: polygon(0 20%, 100% 0%, 100% 100%, 0 80%);
-animation: blurPulse 0.5s ease-in-out infinite alternate;
-}
-
-@keyframes blurPulse {
-0% { opacity: 0.6; width: 280px; }
-100% { opacity: 1; width: 340px; }
-}
-
-/* ── GROUND SPEED DUST ── */
-.ground-dust {
-position: absolute;
-bottom: -5px;
-right: 90%;
-width: 400px;
-height: 20px;
-background: linear-gradient(90deg, transparent, rgba(80,120,180,0.2), rgba(100,150,200,0.4));
-border-radius: 50%;
-filter: blur(6px);
-animation: dustPulse 0.4s ease-in-out infinite alternate;
-}
-
-@keyframes dustPulse {
-0% { width: 350px; opacity: 0.5; }
-100% { width: 450px; opacity: 0.9; }
-}
-
-/* ── CATENARY WIRE ── */
-.catenary {
-position: absolute;
-top: 5%;
-left: 0;
-width: 200%;
-height: 8%;
-animation: slideWire 2s linear infinite;
-}
-
-@keyframes slideWire {
-0% { transform: translateX(0); }
-100% { transform: translateX(-50%); }
-}
-
-/* ── SCENERY POLES ── */
-.poles {
-position: absolute;
-bottom: 0;
-left: 0;
-width: 200%;
-height: 100%;
-animation: slidePoles 4s linear infinite;
-pointer-events: none;
-}
-
-@keyframes slidePoles {
-0% { transform: translateX(0); }
-100% { transform: translateX(-50%); }
-}
-
-/* ── HUD OVERLAY ── */
-.hud {
-position: absolute;
-top: 20px;
-left: 0;
-width: 100%;
-display: flex;
-justify-content: space-between;
-padding: 0 30px;
-pointer-events: none;
-z-index: 10;
-}
-
-.hud-panel {
-background: rgba(0,10,30,0.75);
-border: 1px solid rgba(0,100,200,0.4);
-border-radius: 6px;
-padding: 12px 18px;
-backdrop-filter: blur(8px);
-box-shadow: 0 0 20px rgba(0,80,200,0.2), inset 0 0 10px rgba(0,60,160,0.1);
-}
-
-.hud-label {
-font-family: ‘Rajdhani’, sans-serif;
-font-size: 10px;
-letter-spacing: 3px;
-color: rgba(100,160,220,0.7);
-text-transform: uppercase;
-margin-bottom: 3px;
-}
-
-.hud-value {
-font-family: ‘Bebas Neue’, sans-serif;
-font-size: 32px;
-color: #88ccff;
-letter-spacing: 2px;
-line-height: 1;
-text-shadow: 0 0 10px rgba(0,140,255,0.8);
-}
-
-.hud-unit {
-font-size: 13px;
-color: rgba(100,160,220,0.8);
-letter-spacing: 1px;
-}
-
-.speed-ticker {
-animation: speedTick 2s steps(1) infinite;
-}
-
-@keyframes speedTick {
-0% { content: “”; }
-0% { opacity: 1; }
-50% { opacity: 0.85; }
-}
-
-.hud-center {
-text-align: center;
-}
-
-.route-text {
-font-family: ‘Rajdhani’, sans-serif;
-font-size: 11px;
-letter-spacing: 4px;
-color: rgba(150,200,255,0.9);
-text-transform: uppercase;
-}
-
-.route-line {
-display: flex;
-align-items: center;
-gap: 10px;
-margin-top: 5px;
-justify-content: center;
-}
-
-.route-dot {
-width: 6px; height: 6px;
-border-radius: 50%;
-background: #88ccff;
-box-shadow: 0 0 8px #88ccff;
-animation: pulse 1.5s ease-in-out infinite;
-}
-
-@keyframes pulse {
-0%, 100% { transform: scale(1); opacity: 1; }
-50% { transform: scale(1.4); opacity: 0.6; }
-}
-
-.route-dash {
-flex: 1;
-height: 1px;
-background: linear-gradient(90deg, rgba(100,160,220,0.3), rgba(100,160,220,0.8), rgba(100,160,220,0.3));
-max-width: 80px;
-}
-
-/* ── BOTTOM STATUS BAR ── */
-.status-bar {
-position: absolute;
-bottom: 15px;
-left: 50%;
-transform: translateX(-50%);
-background: rgba(0,10,30,0.8);
-border: 1px solid rgba(0,100,200,0.35);
-border-radius: 30px;
-padding: 8px 24px;
-display: flex;
-gap: 30px;
-align-items: center;
-backdrop-filter: blur(8px);
-z-index: 10;
-}
-
-.status-item {
-display: flex;
-align-items: center;
-gap: 8px;
-}
-
-.status-dot {
-width: 7px; height: 7px;
-border-radius: 50%;
-animation: pulse 1s ease-in-out infinite;
-}
-
-.status-dot.green { background: #00ff88; box-shadow: 0 0 8px #00ff88; }
-.status-dot.blue  { background: #0099ff; box-shadow: 0 0 8px #0099ff; }
-.status-dot.orange{ background: #ff8800; box-shadow: 0 0 8px #ff8800; }
-
-.status-text {
-font-family: ‘Rajdhani’, sans-serif;
-font-size: 11px;
-letter-spacing: 2px;
-color: rgba(160,200,240,0.85);
-text-transform: uppercase;
-}
-
-/* ── SCANLINE EFFECT ── */
-.scanlines {
-position: fixed;
-inset: 0;
-background: repeating-linear-gradient(
-0deg,
-transparent,
-transparent 2px,
-rgba(0,0,0,0.03) 2px,
-rgba(0,0,0,0.03) 4px
-);
-pointer-events: none;
-z-index: 20;
-}
-
-/* ── VIGNETTE ── */
-.vignette {
-position: fixed;
-inset: 0;
-background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,10,0.7) 100%);
-pointer-events: none;
-z-index: 15;
-}
-
-/* ── EGK LOGO on train ── */
-.egk-logo-img {
-image-rendering: crisp-edges;
+@media(max-width:540px){
+  .apps-grid{grid-template-columns:1fr;}
+  .facts-grid{grid-template-columns:1fr 1fr;}
 }
 </style>
-
 </head>
 <body>
 
-<div class="sky"></div>
-
-<!-- Stars -->
-
-<div class="stars" id="stars"></div>
-
-<!-- Far mountains -->
-
-<div class="mountains-far">
-  <svg viewBox="0 0 1440 200" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="mtnFar" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#2a4060"/>
-        <stop offset="100%" stop-color="#1a2838"/>
-      </linearGradient>
-    </defs>
-    <polygon points="0,200 80,80 160,130 260,40 360,100 480,30 560,90 660,20 760,80 860,15 960,70 1060,25 1160,75 1260,35 1360,85 1440,50 1440,200" fill="url(#mtnFar)" opacity="0.7"/>
-    <!-- Snow caps -->
-    <polygon points="260,40 280,60 300,40 285,55 270,55" fill="rgba(200,220,240,0.6)"/>
-    <polygon points="480,30 500,55 520,30 505,50 495,50" fill="rgba(200,220,240,0.6)"/>
-    <polygon points="660,20 680,50 700,20 685,45 675,45" fill="rgba(200,220,240,0.6)"/>
-    <polygon points="860,15 882,48 900,15 885,42 875,42" fill="rgba(200,220,240,0.6)"/>
-  </svg>
-</div>
-
-<!-- Mid mountains (scrolling) -->
-
-<div class="mountains-mid">
-  <svg viewBox="0 0 720 160" preserveAspectRatio="none" style="left:0;position:absolute;width:50%;height:100%;bottom:0">
-    <defs>
-      <linearGradient id="mtnMid" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1a3050"/>
-        <stop offset="100%" stop-color="#0f1e30"/>
-      </linearGradient>
-    </defs>
-    <polygon points="0,160 60,70 130,110 210,30 300,90 400,20 480,75 560,40 640,80 720,30 720,160" fill="url(#mtnMid)"/>
-    <polygon points="210,30 228,55 246,30 232,50 222,50" fill="rgba(180,210,240,0.5)"/>
-    <polygon points="400,20 420,50 438,20 424,46 412,46" fill="rgba(180,210,240,0.5)"/>
-    <polygon points="720,30 738,55 750,30 740,50 726,50" fill="rgba(180,210,240,0.5)"/>
-  </svg>
-  <svg viewBox="0 0 720 160" preserveAspectRatio="none" style="left:50%;position:absolute;width:50%;height:100%;bottom:0">
-    <polygon points="0,160 60,70 130,110 210,30 300,90 400,20 480,75 560,40 640,80 720,30 720,160" fill="url(#mtnMid)"/>
-    <polygon points="210,30 228,55 246,30 232,50 222,50" fill="rgba(180,210,240,0.5)"/>
-    <polygon points="400,20 420,50 438,20 424,46 412,46" fill="rgba(180,210,240,0.5)"/>
-    <polygon points="720,30 738,55 750,30 740,50 726,50" fill="rgba(180,210,240,0.5)"/>
-  </svg>
-</div>
-
-<!-- Horizon glow -->
-
-<div class="horizon-glow"></div>
-
-<!-- Ground -->
-
-<div class="ground"></div>
-
-<!-- Rail Tracks -->
-
-<div class="tracks">
-  <svg class="track-svg" viewBox="0 0 1440 300" preserveAspectRatio="none">
-    <defs>
-      <linearGradient id="railGrad" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#6688aa" stop-opacity="0.9"/>
-        <stop offset="100%" stop-color="#334455" stop-opacity="0.4"/>
-      </linearGradient>
-      <!-- Scrolling sleepers -->
-      <pattern id="sleepers" x="0" y="0" width="80" height="20" patternUnits="userSpaceOnUse">
-        <rect x="5" y="6" width="70" height="8" rx="2" fill="#2a3a4a" stroke="#3a4a5a" stroke-width="0.5"/>
-      </pattern>
-    </defs>
-    <!-- Ballast / gravel bed -->
-    <rect x="0" y="50" width="1440" height="250" fill="rgba(30,40,55,0.8)"/>
-    <!-- Left rail -->
-    <rect x="0" y="55" width="1440" height="6" fill="url(#railGrad)" rx="1"/>
-    <!-- Right rail -->
-    <rect x="0" y="68" width="1440" height="6" fill="url(#railGrad)" rx="1"/>
-    <!-- Rail highlights -->
-    <rect x="0" y="55" width="1440" height="2" fill="rgba(180,220,255,0.4)" rx="1"/>
-    <rect x="0" y="68" width="1440" height="2" fill="rgba(180,220,255,0.4)" rx="1"/>
-    <!-- Sleepers -->
-    <rect x="0" y="50" width="1440" height="30" fill="url(#sleepers)" opacity="0.6"/>
-    <!-- Ground reflections under train -->
-    <ellipse cx="720" cy="62" rx="300" ry="8" fill="rgba(0,100,255,0.15)" filter="url(#blur)"/>
-  </svg>
-</div>
-
-<!-- Catenary (overhead wire) -->
-
-<svg style="position:absolute;top:12%;left:0;width:200%;height:12%;animation:slideWire 1.5s linear infinite;pointer-events:none;" viewBox="0 0 2880 80" preserveAspectRatio="none">
-  <!-- Main wire -->
-  <path d="M0,20 Q72,35 144,20 Q216,5 288,20 Q360,35 432,20 Q504,5 576,20 Q648,35 720,20 Q792,5 864,20 Q936,35 1008,20 Q1080,5 1152,20 Q1224,35 1296,20 Q1368,5 1440,20 Q1512,35 1584,20 Q1656,5 1728,20 Q1800,35 1872,20 Q1944,5 2016,20 Q2088,35 2160,20 Q2232,5 2304,20 Q2376,35 2448,20 Q2520,5 2592,20 Q2664,35 2736,20 Q2808,5 2880,20"
-    stroke="rgba(180,200,220,0.5)" stroke-width="1.5" fill="none"/>
-  <!-- Contact wire (lower) -->
-  <path d="M0,35 Q72,45 144,35 Q216,25 288,35 Q360,45 432,35 Q504,25 576,35 Q648,45 720,35 Q792,25 864,35 Q936,45 1008,35 Q1080,25 1152,35 Q1224,45 1296,35 Q1368,25 1440,35 Q1512,45 1584,35 Q1656,25 1728,35 Q1800,45 1872,35 Q1944,25 2016,35 Q2088,45 2160,35 Q2232,25 2304,35 Q2376,45 2448,35 Q2520,25 2592,35 Q2664,45 2736,35 Q2808,25 2880,35"
-    stroke="rgba(160,190,220,0.6)" stroke-width="1" fill="none"/>
-  <!-- Poles -->
-  <g stroke="rgba(80,110,140,0.5)" stroke-width="2">
-    <line x1="0" y1="0" x2="0" y2="80"/>
-    <line x1="144" y1="0" x2="144" y2="80"/>
-    <line x1="288" y1="0" x2="288" y2="80"/>
-    <line x1="432" y1="0" x2="432" y2="80"/>
-    <line x1="576" y1="0" x2="576" y2="80"/>
-    <line x1="720" y1="0" x2="720" y2="80"/>
-    <line x1="864" y1="0" x2="864" y2="80"/>
-    <line x1="1008" y1="0" x2="1008" y2="80"/>
-    <line x1="1152" y1="0" x2="1152" y2="80"/>
-    <line x1="1296" y1="0" x2="1296" y2="80"/>
-    <line x1="1440" y1="0" x2="1440" y2="80"/>
-    <line x1="1584" y1="0" x2="1584" y2="80"/>
-    <line x1="1728" y1="0" x2="1728" y2="80"/>
-    <line x1="1872" y1="0" x2="1872" y2="80"/>
-    <line x1="2016" y1="0" x2="2016" y2="80"/>
-    <line x1="2160" y1="0" x2="2160" y2="80"/>
-    <line x1="2304" y1="0" x2="2304" y2="80"/>
-    <line x1="2448" y1="0" x2="2448" y2="80"/>
-    <line x1="2592" y1="0" x2="2592" y2="80"/>
-    <line x1="2736" y1="0" x2="2736" y2="80"/>
-    <line x1="2880" y1="0" x2="2880" y2="80"/>
-  </g>
-</svg>
-
-<!-- Speed lines background -->
-
-<div class="speed-lines" id="speedLines"></div>
-
-<!-- TRAIN SCENE -->
-
-<div class="train-scene">
-  <div class="train" id="train">
-
-```
-<!-- Motion blur -->
-<div class="motion-blur"></div>
-<div class="ground-dust"></div>
-
-<!-- ══ LOCOMOTIVE (Eurostar-style pointed nose) ══ -->
-<div class="loco">
-  <svg viewBox="0 0 260 110" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="locoBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#d0dce8"/>
-        <stop offset="40%" stop-color="#e8f0f8"/>
-        <stop offset="75%" stop-color="#c0ccd8"/>
-        <stop offset="100%" stop-color="#8899aa"/>
-      </linearGradient>
-      <linearGradient id="locoTop" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1a2a40"/>
-        <stop offset="100%" stop-color="#0a1520"/>
-      </linearGradient>
-      <linearGradient id="noseGrad" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#a0b0c0"/>
-        <stop offset="60%" stop-color="#dde8f0"/>
-        <stop offset="100%" stop-color="#c0ccd8"/>
-      </linearGradient>
-      <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0%" stop-color="rgba(120,180,240,0.6)"/>
-        <stop offset="100%" stop-color="rgba(60,120,200,0.3)"/>
-      </linearGradient>
-      <linearGradient id="blueStripe" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#0044bb"/>
-        <stop offset="100%" stop-color="#0066dd"/>
-      </linearGradient>
-      <linearGradient id="orangeStripe" x1="0" y1="0" x2="1" y2="0">
-        <stop offset="0%" stop-color="#cc4400"/>
-        <stop offset="100%" stop-color="#ff6600"/>
-      </linearGradient>
-      <filter id="glow">
-        <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
-        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-      <filter id="headlightGlow">
-        <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
-        <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-      </filter>
-    </defs>
-
-    <!-- ── BODY ── -->
-    <!-- Main fuselage -->
-    <path d="M50,15 L245,15 L245,88 L50,88 Z" fill="url(#locoBody)" stroke="#9aabad" stroke-width="0.5"/>
-
-    <!-- Pointed nose (Eurostar style) -->
-    <path d="M50,15 Q20,25 5,50 Q20,75 50,88 L50,15 Z" fill="url(#noseGrad)" stroke="#8899aa" stroke-width="0.5"/>
-
-    <!-- Roof section (dark) -->
-    <rect x="50" y="10" width="195" height="20" rx="3" fill="url(#locoTop)"/>
-    <path d="M50,10 Q30,12 15,30 L50,30 Z" fill="url(#locoTop)"/>
-
-    <!-- Blue accent stripe (Eurostar style) -->
-    <rect x="5" y="42" width="240" height="14" fill="url(#blueStripe)" opacity="0.95"/>
-    <!-- Nose blue -->
-    <path d="M5,42 Q2,48 5,56 L5,42 Z" fill="#0044bb"/>
-
-    <!-- Orange lower accent -->
-    <rect x="50" y="75" width="195" height="8" fill="url(#orangeStripe)" opacity="0.85"/>
-
-    <!-- ── WINDSCREEN ── -->
-    <path d="M50,18 Q35,22 22,38 L50,38 Z" fill="url(#glassGrad)" stroke="rgba(160,210,255,0.4)" stroke-width="0.8"/>
-    <!-- Glass reflection -->
-    <path d="M50,20 Q38,24 26,36 L38,36 Q45,28 50,24 Z" fill="rgba(255,255,255,0.2)"/>
-
-    <!-- ── SIDE WINDOWS (passenger section) ── -->
-    <rect x="80"  y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="116" y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="152" y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="188" y="20" width="26" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="220" y="20" width="20" height="16" rx="2" fill="url(#glassGrad)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Window reflections -->
-    <rect x="81"  y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-    <rect x="117" y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-    <rect x="153" y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-    <rect x="189" y="21" width="8" height="5" rx="1" fill="rgba(255,255,255,0.25)"/>
-
-    <!-- ── HEADLIGHTS ── -->
-    <circle cx="12" cy="42" r="5" fill="#fffce0" filter="url(#headlightGlow)" opacity="0.9"/>
-    <circle cx="12" cy="58" r="4" fill="#ffe080" filter="url(#headlightGlow)" opacity="0.8"/>
-    <!-- Headlight beam -->
-    <path d="M12,42 L-30,28 L-20,56 L12,42 Z" fill="rgba(255,250,200,0.06)"/>
-
-    <!-- ── EGK LOGO EMBEDDED ── -->
-    <image href="https://egkhor.com.my/home/wp-content/uploads/2026/02/cropped-IMG_7598.png"
-      x="155" y="46" width="70" height="26"
-      class="egk-logo-img"
-      preserveAspectRatio="xMidYMid meet"
-      style="filter: brightness(1.1) contrast(1.05);"/>
-
-    <!-- ── PANTOGRAPH ── -->
-    <line x1="180" y1="10" x2="175" y2="-18" stroke="#6688aa" stroke-width="1.5"/>
-    <line x1="175" y1="-18" x2="160" y2="-28" stroke="#6688aa" stroke-width="1.5"/>
-    <line x1="160" y1="-28" x2="195" y2="-28" stroke="#8899bb" stroke-width="2"/>
-    <line x1="175" y1="-18" x2="190" y2="-28" stroke="#6688aa" stroke-width="1"/>
-    <circle cx="160" cy="-28" r="2" fill="#aabbcc"/>
-    <circle cx="195" cy="-28" r="2" fill="#aabbcc"/>
-    <!-- Pantograph spark -->
-    <g filter="url(#glow)" style="animation: spark 0.15s linear infinite alternate;">
-      <circle cx="177" cy="-28" r="3" fill="#88ddff" opacity="0.9"/>
-      <circle cx="177" cy="-28" r="1.5" fill="white"/>
-    </g>
-
-    <!-- ── UNDERCARRIAGE ── -->
-    <rect x="20" y="85" width="225" height="8" rx="2" fill="#1a2030" stroke="#2a3040" stroke-width="0.5"/>
-
-    <!-- ── BOGIES / WHEELS ── -->
-    <!-- Front bogie -->
-    <g transform="translate(60, 93)">
-      <rect x="-25" y="0" width="50" height="8" rx="2" fill="#1a2535"/>
-      <circle cx="-14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="-14" y1="2" x2="-14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
-      <line x1="-22" y1="10" x2="-6" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
-      <circle cx="14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="14" y1="2" x2="14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
-      <line x1="6" y1="10" x2="22" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
-    </g>
-    <!-- Rear bogie -->
-    <g transform="translate(200, 93)">
-      <rect x="-25" y="0" width="50" height="8" rx="2" fill="#1a2535"/>
-      <circle cx="-14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="-14" y1="2" x2="-14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
-      <line x1="-22" y1="10" x2="-6" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:-14px 10px"/>
-      <circle cx="14" cy="10" r="8" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="14" cy="10" r="3" fill="#2a3a50"/>
-      <line x1="14" y1="2" x2="14" y2="18" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
-      <line x1="6" y1="10" x2="22" y2="10" stroke="#3a5070" stroke-width="1" class="wheel-spin" style="transform-origin:14px 10px"/>
-    </g>
-
-    <!-- Ground reflection/glow -->
-    <ellipse cx="130" cy="108" rx="120" ry="6" fill="rgba(0,80,200,0.2)" filter="url(#glow)"/>
-
-    <!-- Speed indicator light strip -->
-    <rect x="50" y="56" width="195" height="3" rx="1" fill="rgba(0,150,255,0.4)"/>
-  </svg>
-</div>
-
-<!-- ══ PASSENGER CAR 1 ══ -->
-<div class="pax">
-  <svg viewBox="0 0 180 88" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="paxBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#c8d8e8"/>
-        <stop offset="35%" stop-color="#e0ecf8"/>
-        <stop offset="72%" stop-color="#b8c8d8"/>
-        <stop offset="100%" stop-color="#7888a0"/>
-      </linearGradient>
-    </defs>
-    <!-- Body -->
-    <rect x="0" y="12" width="180" height="70" fill="url(#paxBody)" stroke="#9aabad" stroke-width="0.5"/>
-    <!-- Roof -->
-    <rect x="0" y="8" width="180" height="18" rx="2" fill="#1a2a40"/>
-    <!-- Blue stripe -->
-    <rect x="0" y="40" width="180" height="13" fill="#0044bb" opacity="0.9"/>
-    <!-- Orange lower -->
-    <rect x="0" y="73" width="180" height="7" fill="#ff6600" opacity="0.85"/>
-    <!-- Windows -->
-    <rect x="10"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="42"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="74"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="106" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="138" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Window shine -->
-    <rect x="11" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="43" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="75" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="107" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <!-- Passenger silhouettes in windows -->
-    <circle cx="18" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="50" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="82" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <!-- Door -->
-    <rect x="160" y="15" width="15" height="60" rx="1" fill="rgba(150,170,190,0.4)" stroke="rgba(130,150,170,0.5)" stroke-width="0.5"/>
-    <!-- Undercarriage + bogies -->
-    <rect x="0" y="80" width="180" height="6" rx="1" fill="#1a2030"/>
-    <!-- Bogie 1 -->
-    <g transform="translate(40, 86)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <!-- Bogie 2 -->
-    <g transform="translate(140, 86)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <!-- Speed strip -->
-    <rect x="0" y="53" width="180" height="2" rx="1" fill="rgba(0,150,255,0.35)"/>
-    <ellipse cx="90" cy="105" rx="80" ry="5" fill="rgba(0,80,200,0.15)"/>
-  </svg>
-</div>
-
-<!-- ══ CARGO CAR ══ -->
-<div class="car">
-  <svg viewBox="0 0 190 90" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="cargoBody" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#b0c0cc"/>
-        <stop offset="50%" stop-color="#c8d4dc"/>
-        <stop offset="100%" stop-color="#6a7a88"/>
-      </linearGradient>
-      <linearGradient id="cargoContainer" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#c85500"/>
-        <stop offset="50%" stop-color="#e86000"/>
-        <stop offset="100%" stop-color="#a04000"/>
-      </linearGradient>
-      <linearGradient id="cargoContainer2" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stop-color="#1144aa"/>
-        <stop offset="50%" stop-color="#1a55cc"/>
-        <stop offset="100%" stop-color="#0a3080"/>
-      </linearGradient>
-    </defs>
-    <!-- Flatbed -->
-    <rect x="0" y="60" width="190" height="14" fill="url(#cargoBody)" stroke="#8a9aaa" stroke-width="0.5"/>
-    <!-- Container 1 (orange - EGK freight) -->
-    <rect x="5"  y="12" width="85" height="50" rx="2" fill="url(#cargoContainer)"/>
-    <rect x="5"  y="12" width="85" height="8"  rx="2" fill="rgba(255,150,80,0.4)"/>
-    <!-- Container ribs -->
-    <line x1="20"  y1="12" x2="20"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="35"  y1="12" x2="35"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="50"  y1="12" x2="50"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="65"  y1="12" x2="65"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <line x1="80"  y1="12" x2="80"  y2="62" stroke="rgba(80,30,0,0.4)" stroke-width="1"/>
-    <!-- EGK text on cargo container -->
-    <text x="47" y="42" font-family="Bebas Neue, Arial Black" font-size="14" fill="white" text-anchor="middle" opacity="0.9" font-weight="bold">EGK</text>
-    <text x="47" y="54" font-family="Rajdhani, Arial" font-size="6" fill="rgba(255,200,150,0.8)" text-anchor="middle" letter-spacing="1">FREIGHT</text>
-
-    <!-- Container 2 (blue) -->
-    <rect x="100" y="12" width="85" height="50" rx="2" fill="url(#cargoContainer2)"/>
-    <rect x="100" y="12" width="85" height="8"  rx="2" fill="rgba(100,150,220,0.4)"/>
-    <!-- Container ribs -->
-    <line x1="115" y1="12" x2="115" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="130" y1="12" x2="130" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="145" y1="12" x2="145" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="160" y1="12" x2="160" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <line x1="175" y1="12" x2="175" y2="62" stroke="rgba(0,20,60,0.4)" stroke-width="1"/>
-    <text x="142" y="42" font-family="Bebas Neue, Arial Black" font-size="14" fill="white" text-anchor="middle" opacity="0.9" font-weight="bold">CARGO</text>
-    <text x="142" y="54" font-family="Rajdhani, Arial" font-size="6" fill="rgba(150,200,255,0.8)" text-anchor="middle" letter-spacing="1">HIGH-SPEED</text>
-
-    <!-- Undercarriage + bogies -->
-    <rect x="0" y="74" width="190" height="6" rx="1" fill="#1a2030"/>
-    <g transform="translate(45, 80)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <g transform="translate(145, 80)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <ellipse cx="95" cy="105" rx="85" ry="5" fill="rgba(0,80,200,0.12)"/>
-  </svg>
-</div>
-
-<!-- ══ PASSENGER CAR 2 ══ -->
-<div class="pax">
-  <svg viewBox="0 0 180 88" fill="none" overflow="visible">
-    <!-- Body -->
-    <rect x="0" y="12" width="180" height="70" fill="url(#paxBody)" stroke="#9aabad" stroke-width="0.5"/>
-    <!-- Roof -->
-    <rect x="0" y="8" width="180" height="18" rx="2" fill="#1a2a40"/>
-    <!-- Blue stripe -->
-    <rect x="0" y="40" width="180" height="13" fill="#0044bb" opacity="0.9"/>
-    <!-- Orange lower -->
-    <rect x="0" y="73" width="180" height="7" fill="#ff6600" opacity="0.85"/>
-    <!-- Windows -->
-    <rect x="10"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="42"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="74"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0,0.5)" stroke-width="0.8"/>
-    <rect x="74"  y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="106" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="138" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Shine -->
-    <rect x="11" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="43" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <rect x="75" y="17" width="7" height="5" rx="1" fill="rgba(255,255,255,0.2)"/>
-    <!-- Silhouettes -->
-    <circle cx="18" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="114" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <circle cx="146" cy="22" r="4" fill="rgba(40,60,100,0.5)"/>
-    <!-- Door -->
-    <rect x="3" y="15" width="5" height="60" rx="1" fill="rgba(150,170,190,0.4)" stroke="rgba(130,150,170,0.5)" stroke-width="0.5"/>
-    <!-- Undercarriage -->
-    <rect x="0" y="80" width="180" height="6" rx="1" fill="#1a2030"/>
-    <g transform="translate(40, 86)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <g transform="translate(140, 86)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <rect x="0" y="53" width="180" height="2" rx="1" fill="rgba(0,150,255,0.35)"/>
-    <ellipse cx="90" cy="105" rx="80" ry="5" fill="rgba(0,80,200,0.15)"/>
-  </svg>
-</div>
-
-<!-- ══ TAIL (Eurostar rear) ══ -->
-<div class="tail">
-  <svg viewBox="0 0 140 110" fill="none" overflow="visible">
-    <defs>
-      <linearGradient id="tailGrad" x1="1" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#c0ccd8"/>
-        <stop offset="60%" stop-color="#e0ecf8"/>
-        <stop offset="100%" stop-color="#a0b0c0"/>
-      </linearGradient>
-      <linearGradient id="tailNose" x1="1" y1="0" x2="0" y2="0">
-        <stop offset="0%" stop-color="#a0b0c0"/>
-        <stop offset="40%" stop-color="#dde8f0"/>
-        <stop offset="100%" stop-color="#c0ccd8"/>
-      </linearGradient>
-    </defs>
-    <!-- Body -->
-    <path d="M0,15 L90,15 L90,88 L0,88 Z" fill="url(#tailGrad)" stroke="#9aabad" stroke-width="0.5"/>
-    <!-- Pointed tail nose -->
-    <path d="M90,15 Q110,25 135,50 Q110,75 90,88 L90,15 Z" fill="url(#tailNose)" stroke="#8899aa" stroke-width="0.5"/>
-    <!-- Roof -->
-    <rect x="0" y="10" width="90" height="20" rx="2" fill="#1a2a40"/>
-    <path d="M90,10 Q110,12 128,30 L90,30 Z" fill="#1a2a40"/>
-    <!-- Blue stripe -->
-    <rect x="0" y="42" width="135" height="14" fill="#0044bb" opacity="0.9"/>
-    <path d="M135,42 Q137,48 135,56 L135,42 Z" fill="#0044bb"/>
-    <!-- Orange lower -->
-    <rect x="0" y="75" width="90" height="8" fill="#ff6600" opacity="0.85"/>
-    <!-- Rear windows -->
-    <rect x="10" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="42" y="16" width="22" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <rect x="68" y="16" width="18" height="16" rx="2" fill="rgba(100,160,220,0.5)" stroke="rgba(160,200,240,0.5)" stroke-width="0.8"/>
-    <!-- Rear windscreen -->
-    <path d="M90,18 Q105,22 118,38 L90,38 Z" fill="rgba(100,160,220,0.45)" stroke="rgba(160,210,255,0.4)" stroke-width="0.8"/>
-    <!-- Tail lights -->
-    <circle cx="128" cy="42" r="5" fill="#ff2200" opacity="0.9"/>
-    <circle cx="128" cy="58" r="4" fill="#ff4400" opacity="0.8"/>
-    <!-- Tail light glow -->
-    <circle cx="128" cy="42" r="9" fill="rgba(255,50,0,0.2)"/>
-    <!-- Undercarriage -->
-    <rect x="0" y="85" width="90" height="8" rx="2" fill="#1a2030" stroke="#2a3040" stroke-width="0.5"/>
-    <!-- Bogies -->
-    <g transform="translate(30, 93)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <g transform="translate(78, 93)">
-      <rect x="-22" y="0" width="44" height="7" rx="2" fill="#1a2535"/>
-      <circle cx="-12" cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="-12" cy="9" r="2.5" fill="#2a3a50"/>
-      <circle cx="12"  cy="9" r="7" fill="#1a2030" stroke="#3a5070" stroke-width="1.5" class="wheel-spin"/>
-      <circle cx="12"  cy="9" r="2.5" fill="#2a3a50"/>
-    </g>
-    <!-- Rear tail glow -->
-    <ellipse cx="70" cy="108" rx="70" ry="5" fill="rgba(0,80,200,0.18)"/>
-  </svg>
-</div>
-```
-
-  </div><!-- /.train -->
-</div><!-- /.train-scene -->
-
-<!-- HUD -->
-
-<div class="hud">
-  <div class="hud-panel">
-    <div class="hud-label">Speed</div>
-    <div class="hud-value"><span id="speedVal">320</span><span class="hud-unit"> km/h</span></div>
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <img class="logo" src="https://egkhor.com.my/home/wp-content/uploads/2026/02/cropped-IMG_7598.png" alt="EGK">
+    <span class="nav-brand-text">EGK Scientific Series</span>
   </div>
+  <ul class="nav-links">
+    <li><a href="#apps">7 Apps</a></li>
+    <li><a href="#facts">Science Facts</a></li>
+    <li><a href="#about-egk">About</a></li>
+    <li><a href="https://apps.apple.com/my/app/egk-climateiq/id6759167270" target="_blank" class="nav-cta">🌍 Download Free</a></li>
+  </ul>
+</nav>
 
-  <div class="hud-panel hud-center">
-    <div class="route-text">EGK Rail Express</div>
-    <div class="route-line">
-      <div class="route-dot"></div>
-      <div class="route-dash"></div>
-      <span style="font-family:'Rajdhani';font-size:11px;color:rgba(150,200,255,0.9);letter-spacing:2px;">EN ROUTE</span>
-      <div class="route-dash"></div>
-      <div class="route-dot"></div>
+<!-- ══ HERO with Canvas ══ -->
+<section id="hero">
+  <canvas id="heroCanvas"></canvas>
+  <div class="hero-inner container">
+    <div>
+      <div class="hero-eyebrow"><span class="pdot"></span>EGK Scientific Series · iOS Apps</div>
+      <h1 class="hero-title">
+        Earth's <span class="cyan">Forces,</span><br>
+        <span class="amber">Decoded.</span>
+      </h1>
+      <p class="hero-sub">7 precision-crafted scientific apps exploring the planet's most powerful phenomena — volcanoes, earthquakes, tsunamis, storms, tornadoes, climate, and space weather.</p>
+      <div class="hero-btns">
+        <a href="#apps" class="btn btn-cyan">🌋 Explore 7 Apps</a>
+        <a href="#facts" class="btn btn-amber">🔬 Science Facts</a>
+        <a href="#about-egk" class="btn btn-ghost">ℹ️ About EGK</a>
+      </div>
+      <div class="hero-tags">
+        <span class="htag">🌋 Volcano Intelligence</span>
+        <span class="htag">🌊 Tsunami Radar</span>
+        <span class="htag">⚡ StormLab</span>
+        <span class="htag">🌪️ TornadoRadar</span>
+        <span class="htag">🌡️ ClimateIQ</span>
+        <span class="htag">☀️ Space Weather</span>
+        <span class="htag">🇲🇾 EGK Penang</span>
+      </div>
     </div>
-    <div style="margin-top:4px;font-family:'Bebas Neue';font-size:16px;color:#66aaee;letter-spacing:3px;">
-      PENANG ── KUALA LUMPUR
+    <div class="hero-right">
+      <img class="hero-mushi" src="https://egkhor.com.my/home/wp-content/uploads/2026/04/MUSHI.png" alt="Mushi">
+      <div class="hero-globe-note">
+        <div class="hgn-title">🌍 Live Simulation Legend</div>
+        <div class="hgn-row"><span class="hgn-dot" style="background:#FF7800"></span>Volcanic eruption particles</div>
+        <div class="hgn-row"><span class="hgn-dot" style="background:#00CCFF"></span>Tsunami wave propagation</div>
+        <div class="hgn-row"><span class="hgn-dot" style="background:#FFE040"></span>Lightning storm cells</div>
+        <div class="hgn-row"><span class="hgn-dot" style="background:#00FF88"></span>Solar wind & space weather</div>
+        <div class="hgn-row"><span class="hgn-dot" style="background:#8855FF"></span>Tornado vortex rotation</div>
+        <div class="hgn-row"><span class="hgn-dot" style="background:#AADDFF"></span>Rain & precipitation systems</div>
+      </div>
     </div>
   </div>
+</section>
 
-  <div class="hud-panel" style="text-align:right">
-    <div class="hud-label">Power Output</div>
-    <div class="hud-value"><span id="powerVal">12.2</span><span class="hud-unit"> MW</span></div>
+<!-- STATS STRIP -->
+<div class="sstrip">
+  <div class="sstrip-inner">
+    <div class="ss"><span class="ss-n">7</span><span class="ss-l">Scientific Apps</span></div>
+    <div class="ss"><span class="ss-n">FREE</span><span class="ss-l">iOS Download</span></div>
+    <div class="ss"><span class="ss-n">🌋</span><span class="ss-l">Volcano AI</span></div>
+    <div class="ss"><span class="ss-n">🌊</span><span class="ss-l">Tsunami Radar</span></div>
+    <div class="ss"><span class="ss-n">☀️</span><span class="ss-l">Space Weather</span></div>
+    <div class="ss"><span class="ss-n">⚡</span><span class="ss-l">StormLab</span></div>
   </div>
 </div>
 
-<!-- Status bar -->
+<!-- ══ 7 APPS ══ -->
+<section id="apps">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="sec-label">The Scientific Apps</div>
+      <h2 class="sec-title">7 Windows into <span>Earth's Raw Power</span></h2>
+      <p class="sec-desc" style="margin:0 auto;">From the molten core of a supervolcano to a Carrington-class solar storm — each EGK Scientific app delivers real-time intelligence, deep educational content, and stunning visualizations.</p>
+    </div>
+    <div class="apps-grid">
 
-<div class="status-bar">
-  <div class="status-item">
-    <div class="status-dot green"></div>
-    <span class="status-text">Propulsion: Nominal</span>
-  </div>
-  <div class="status-item">
-    <div class="status-dot blue"></div>
-    <span class="status-text">Pantograph: Active</span>
-  </div>
-  <div class="status-item">
-    <div class="status-dot orange"></div>
-    <span class="status-text">EGK Rail System</span>
-  </div>
-</div>
+      <!-- Volcano -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:var(--orange);"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/88/72/cd/8872cd1d-1e27-632d-435a-5ca8a841610a/Placeholder.mill/400x400bb-75.webp" alt="GeoIQ Volcano">
+          <div>
+            <span class="app-cat cat-geo">🌋 Geology</span>
+            <div class="app-name">EGK GeoIQ Volcano</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Real-time volcanic intelligence — track eruption alerts, lava flow modeling, ash cloud dispersal, and seismic precursor data from every active volcano on Earth.</div>
+        <div class="app-feats">
+          <span class="af">Eruption Alerts</span><span class="af">Lava Flow Maps</span>
+          <span class="af">Ash Cloud AI</span><span class="af">Seismic Data</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-geoiq-volcano/id6759188223" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
 
-<!-- Scanlines -->
+      <!-- Earthquake -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:#FF4040;"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/cb/e2/10/cbe21035-1097-c768-6a0f-67e4cf568c29/Placeholder.mill/400x400bb-75.webp" alt="GeoIQ Earthquake">
+          <div>
+            <span class="app-cat cat-geo">🏔️ Seismology</span>
+            <div class="app-name">EGK GeoIQ Earthquake</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Global seismic monitoring in your pocket — real-time earthquake detection, tectonic plate visualization, Richter scale analysis, and aftershock prediction models.</div>
+        <div class="app-feats">
+          <span class="af">Real-time Seismic</span><span class="af">Tectonic Plates</span>
+          <span class="af">Richter Analysis</span><span class="af">Aftershock AI</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-geoiq-earthquake/id6759186777" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
 
-<div class="scanlines"></div>
-<!-- Vignette -->
-<div class="vignette"></div>
+      <!-- Tsunami -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:var(--cyan);"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/81/e5/ee/81e5ee1c-5b45-507a-e432-db54321f67bf/Placeholder.mill/400x400bb-75.webp" alt="GeoIQ Tsunami">
+          <div>
+            <span class="app-cat cat-climate">🌊 Oceanology</span>
+            <div class="app-name">EGK GeoIQ Tsunami</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Tsunami propagation modeling from ocean floor to coastline — wave travel time charts, inundation zone maps, and early warning system integration.</div>
+        <div class="app-feats">
+          <span class="af">Wave Propagation</span><span class="af">Inundation Maps</span>
+          <span class="af">Travel Time</span><span class="af">Early Warning</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-geoiq-tsunami/id6759077078" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
+
+      <!-- StormLab -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:var(--purple);"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/f9/3e/e8/f93ee84c-83e7-9e40-8545-54d7f9474d85/Placeholder.mill/400x400bb-75.webp" alt="StormLab">
+          <div>
+            <span class="app-cat cat-storm">⚡ Meteorology</span>
+            <div class="app-name">EGK StormLab</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Tropical cyclone and severe storm analysis — track typhoons, hurricane intensity modeling, storm surge prediction, and lightning strike density mapping.</div>
+        <div class="app-feats">
+          <span class="af">Cyclone Tracking</span><span class="af">Storm Surge</span>
+          <span class="af">Lightning Maps</span><span class="af">Wind Field AI</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-stormlab/id6759149659" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
+
+      <!-- TornadoRadar -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:#9966FF;"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/3b/9f/4c/3b9f4cad-6790-9497-f124-215b02aa0b78/Placeholder.mill/400x400bb-75.webp" alt="TornadoRadar">
+          <div>
+            <span class="app-cat cat-storm">🌪️ Severe Weather</span>
+            <div class="app-name">EGK TornadoRadar</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Tornado formation science, Doppler radar interpretation, supercell tracking, and EF-scale damage prediction — the definitive tornado intelligence platform.</div>
+        <div class="app-feats">
+          <span class="af">Doppler Radar</span><span class="af">Supercell Track</span>
+          <span class="af">EF-Scale AI</span><span class="af">Formation Science</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-tornadoradar/id6759039995" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
+
+      <!-- ClimateIQ -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:var(--teal);"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/65/ac/9b/65ac9b73-366e-3a52-ac3f-b6bb018c1e17/Placeholder.mill/400x400bb-75.webp" alt="ClimateIQ">
+          <div>
+            <span class="app-cat cat-climate">🌡️ Climatology</span>
+            <div class="app-name">EGK ClimateIQ</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Global climate intelligence — temperature anomaly mapping, CO₂ concentration trends, sea level rise projections, and regional climate risk scoring.</div>
+        <div class="app-feats">
+          <span class="af">Temp Anomaly</span><span class="af">CO₂ Trends</span>
+          <span class="af">Sea Level AI</span><span class="af">Climate Risk</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-climateiq/id6759167270" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
+
+      <!-- SpaceWeather -->
+      <div class="app-card reveal">
+        <div class="app-glow" style="background:var(--green);"></div>
+        <div class="app-card-top">
+          <img class="app-icon" src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/01/51/39/01513999-e816-1d36-1764-c33aab4a2b41/Placeholder.mill/400x400bb-75.webp" alt="SpaceWeather">
+          <div>
+            <span class="app-cat cat-space">☀️ Heliophysics</span>
+            <div class="app-name">EGK SpaceWeather</div>
+            <div class="app-series">EGK Scientific Series</div>
+          </div>
+        </div>
+        <div class="app-desc">Solar flare alerts, coronal mass ejection tracking, Kp-index geomagnetic storm monitoring, and aurora forecast — your shield against space weather events.</div>
+        <div class="app-feats">
+          <span class="af">Solar Flares</span><span class="af">CME Tracking</span>
+          <span class="af">Kp-Index</span><span class="af">Aurora Forecast</span>
+        </div>
+        <div class="app-dl">
+          <a class="dl-btn" href="https://apps.apple.com/my/app/egk-spaceweather/id6759100755" target="_blank">🍎 App Store</a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Mushi apps note -->
+    <div style="margin-top:32px;text-align:center;display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap;" class="reveal">
+      <img src="https://egkhor.com.my/home/wp-content/uploads/2026/04/MUSHI.png" style="width:60px;animation:musf 4s ease-in-out infinite;filter:drop-shadow(0 6px 14px rgba(0,200,255,.25));" alt="Mushi">
+      <p style="font-size:.88rem;color:var(--muted);max-width:500px;line-height:1.7;font-style:italic;">
+        <strong style="color:var(--amber)">Mushi says:</strong> "From the deepest ocean trench to the edge of the solar wind — science has never felt this close. Download all 7 and become Earth's guardian! 🌏✨"
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MUSHI SECTION ══ -->
+<section id="mushi-section">
+  <div class="ms-bg-blob mblob1"></div>
+  <div class="ms-bg-blob mblob2"></div>
+  <div class="ms-inner reveal">
+    <img class="ms-mushi" src="https://egkhor.com.my/home/wp-content/uploads/2026/04/MUSHI.png" alt="Mushi">
+    <p class="ms-quote">
+      "Every <span class="cyan">volcano</span>, every <span class="amber">earthquake</span>, every <span style="color:var(--green)">solar storm</span> —<br>
+      Earth is speaking. <strong style="color:var(--white)">EGK Scientific helps you listen.</strong> 🌍🔬"
+    </p>
+    <p style="font-size:.82rem;color:var(--muted);margin-bottom:20px;">EGK's Scientific Series — curiosity meets cutting-edge data science.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;">
+      <a href="https://apps.apple.com/my/app/egk-climateiq/id6759167270" target="_blank" class="btn btn-cyan">🌍 Download ClimateIQ Free</a>
+      <a href="https://apps.apple.com/my/app/egk-spaceweather/id6759100755" target="_blank" class="btn btn-amber">☀️ SpaceWeather App</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SCIENCE FACTS ══ -->
+<section id="facts">
+  <div class="container">
+    <div class="text-center reveal">
+      <div class="sec-label">Did You Know?</div>
+      <h2 class="sec-title">Earth's <span class="amber">Most Extreme Numbers</span></h2>
+    </div>
+    <div class="facts-grid">
+      <div class="fact reveal"><div class="fact-icon">🌋</div><span class="fact-n">1,500</span><div class="fact-l">Active Volcanoes</div><div class="fact-body">Earth has ~1,500 potentially active volcanoes. ~50 erupt every year.</div></div>
+      <div class="fact reveal"><div class="fact-icon">🏔️</div><span class="fact-n">500,000</span><div class="fact-l">Earthquakes/Year</div><div class="fact-body">Earth experiences ~500,000 detectable quakes annually. ~100 cause damage.</div></div>
+      <div class="fact reveal"><div class="fact-icon">🌊</div><span class="fact-n">800 km/h</span><div class="fact-l">Tsunami Speed</div><div class="fact-body">Deep-ocean tsunamis travel as fast as a jet aircraft before slowing near shore.</div></div>
+      <div class="fact reveal"><div class="fact-icon">⚡</div><span class="fact-n">1.4 billion</span><div class="fact-l">Lightning Strikes/Year</div><div class="fact-body">Earth is struck by ~100 lightning bolts every second — ~8 million per day.</div></div>
+      <div class="fact reveal"><div class="fact-icon">🌪️</div><span class="fact-n">480 km/h</span><div class="fact-l">Max Tornado Wind</div><div class="fact-body">The fastest recorded tornado winds reached 480 km/h in the 1999 Bridge Creek tornado.</div></div>
+      <div class="fact reveal"><div class="fact-icon">🌡️</div><span class="fact-n">+1.2°C</span><div class="fact-l">Global Warming Since 1880</div><div class="fact-body">Earth's average temperature has risen ~1.2°C since pre-industrial times — accelerating.</div></div>
+      <div class="fact reveal"><div class="fact-icon">☀️</div><span class="fact-n">X28</span><div class="fact-l">Strongest Solar Flare</div><div class="fact-body">The 2003 Halloween solar flare was X28-class — the most powerful ever recorded.</div></div>
+      <div class="fact reveal"><div class="fact-icon">🌏</div><span class="fact-n">3 km/yr</span><div class="fact-l">Tectonic Plate Speed</div><div class="fact-body">Tectonic plates move 2–5 cm/year — at the same speed human fingernails grow.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ ABOUT EGK ══ -->
+<section id="about-egk">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-card reveal">
+        <img class="ac-mushi" src="https://egkhor.com.my/home/wp-content/uploads/2026/04/MUSHI.png" alt="Mushi">
+        <div class="ac-name">Isaac Khor Eng Gian</div>
+        <div class="ac-role">Founder, Developer & CEO</div>
+        <div class="ac-co">EGK Microelectronic Solutions Group</div>
+        <img class="ac-logo" src="https://egkhor.com.my/home/wp-content/uploads/2026/02/cropped-IMG_7598.png" alt="EGK">
+        <div class="ac-contacts">
+          <div class="aci">📍 Penang, Malaysia</div>
+          <div class="aci">📞 +604-505 9700</div>
+          <div class="aci">✉️ <a href="mailto:sales@egkhor.com.my" style="color:var(--cyan)">sales@egkhor.com.my</a></div>
+          <div class="aci">🌐 <a href="https://egkhor.com.my" target="_blank" style="color:var(--cyan)">egkhor.com.my</a></div>
+        </div>
+      </div>
+      <div class="about-text reveal">
+        <div class="sec-label">About EGK</div>
+        <h2 class="sec-title">Curiosity. Technology. <span>Impact.</span></h2>
+        <blockquote>"EGK Scientific Series was built on one belief: everyone deserves to understand the forces that shape our planet — from the ocean floor to the edge of space. Powered by data, designed for everyone."</blockquote>
+        <p>EGK Microelectronic Solutions Group Sdn. Bhd. is a Penang-based technology company building mobile applications that transform how Malaysians and the world understand science, education, safety, and the environment.</p>
+        <p>Beyond the Scientific Series, EGK has built a comprehensive ecosystem spanning STEM AR education, AI literacy, anti-bullying platforms, humanitarian resilience apps, Malaysia transport guides, and nuclear AI research.</p>
+        <div class="app-pills">
+          <span class="ap">🌋 7 Scientific Apps</span>
+          <span class="ap">🥽 59 STEM AR Modules</span>
+          <span class="ap">🤖 AI Adventure Series</span>
+          <span class="ap">🛡️ Anti-Bully Careline</span>
+          <span class="ap">🌍 EHRI Humanitarian</span>
+          <span class="ap">🚉 8 Transport Apps</span>
+          <span class="ap">⚛️ Nuclear AI Models</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="fl"><img src="https://egkhor.com.my/home/wp-content/uploads/2026/02/cropped-IMG_7598.png" alt="EGK"></div>
+      <div class="fa">EGK Microelectronic Solutions Group Sdn. Bhd.<br>EGK Scientific Series · Earth Intelligence Apps<br>7 Apps · Volcano · Earthquake · Tsunami · Storm · Tornado · Climate · Space<br><br>© 2026 EGK Microelectronic Solutions Group Sdn. Bhd.</div>
+    </div>
+    <div>
+      <div class="ft">7 Apps</div>
+      <ul class="fl-links">
+        <li><a href="https://apps.apple.com/my/app/egk-geoiq-volcano/id6759188223" target="_blank">🌋 GeoIQ Volcano</a></li>
+        <li><a href="https://apps.apple.com/my/app/egk-geoiq-earthquake/id6759186777" target="_blank">🏔️ GeoIQ Earthquake</a></li>
+        <li><a href="https://apps.apple.com/my/app/egk-geoiq-tsunami/id6759077078" target="_blank">🌊 GeoIQ Tsunami</a></li>
+        <li><a href="https://apps.apple.com/my/app/egk-stormlab/id6759149659" target="_blank">⚡ StormLab</a></li>
+        <li><a href="https://apps.apple.com/my/app/egk-tornadoradar/id6759039995" target="_blank">🌪️ TornadoRadar</a></li>
+        <li><a href="https://apps.apple.com/my/app/egk-climateiq/id6759167270" target="_blank">🌡️ ClimateIQ</a></li>
+        <li><a href="https://apps.apple.com/my/app/egk-spaceweather/id6759100755" target="_blank">☀️ SpaceWeather</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="ft">EGK Universe</div>
+      <ul class="fl-links">
+        <li><a href="https://egkhor.com.my" target="_blank">🌐 EGK Website</a></li>
+        <li><a href="mailto:sales@egkhor.com.my">✉️ Contact</a></li>
+        <li><a href="tel:+60450597000">📞 Call Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="fb">
+    <span>© 2026 EGK Microelectronic Solutions Group Sdn. Bhd. · 🇲🇾 Penang, Malaysia</span>
+    <span style="color:var(--cyan)">🌍 Earth's Forces, Decoded · EGK Scientific Series</span>
+  </div>
+</footer>
 
 <script>
-// ── Generate stars ──
-const starsEl = document.getElementById('stars');
-for (let i = 0; i < 120; i++) {
-  const s = document.createElement('div');
-  s.className = 'star';
-  const size = Math.random() * 2.2 + 0.4;
-  s.style.cssText = `
-    width:${size}px; height:${size}px;
-    left:${Math.random()*100}%;
-    top:${Math.random()*100}%;
-    animation-delay:${Math.random()*4}s;
-    animation-duration:${2+Math.random()*3}s;
-  `;
-  starsEl.appendChild(s);
-}
+/* ══ HERO CANVAS ANIMATION ══
+   Multi-layer: rotating Earth, storm cells + lightning, rain, volcano particles,
+   tsunami waves, tornado vortex, solar wind from top-right
+*/
+(function(){
+  const canvas = document.getElementById('heroCanvas');
+  const ctx = canvas.getContext('2d');
+  let W, H;
 
-// ── Generate speed lines ──
-const linesEl = document.getElementById('speedLines');
-for (let i = 0; i < 25; i++) {
-  const l = document.createElement('div');
-  l.className = 'speed-line';
-  const width = 80 + Math.random() * 200;
-  const top   = 15 + Math.random() * 65;
-  l.style.cssText = `
-    width:${width}px;
-    top:${top}%;
-    right:${Math.random()*30}%;
-    animation-delay:${Math.random()*0.6}s;
-    animation-duration:${0.4 + Math.random()*0.4}s;
-    opacity:${0.3 + Math.random()*0.5};
-  `;
-  linesEl.appendChild(l);
-}
-
-// ── Wheel spin: individual origins ──
-document.querySelectorAll('.wheel-spin').forEach(el => {
-  const cx = el.getAttribute('cx');
-  const cy = el.getAttribute('cy');
-  const x1 = el.getAttribute('x1');
-  const y1 = el.getAttribute('y1');
-  if (cx && cy) {
-    el.style.transformOrigin = `${cx}px ${cy}px`;
-    el.style.animation = `spin ${0.2 + Math.random()*0.15}s linear infinite`;
+  function resize(){
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
   }
-});
+  resize();
+  window.addEventListener('resize', resize);
 
-// ── Animated speed/power HUD ──
-let baseSpeed = 320;
-let speedDir  = 1;
-setInterval(() => {
-  baseSpeed += speedDir * (Math.random() * 2);
-  if (baseSpeed > 325) speedDir = -1;
-  if (baseSpeed < 315) speedDir =  1;
-  document.getElementById('speedVal').textContent = Math.round(baseSpeed);
-  document.getElementById('powerVal').textContent = (11.8 + Math.random()*0.8).toFixed(1);
-}, 300);
+  let t = 0;
+
+  // --- STARS ---
+  const stars = Array.from({length:220},()=>({
+    x:Math.random(), y:Math.random(),
+    r:Math.random()*1.4+.2,
+    a:Math.random()*.7+.1,
+    tw:Math.random()*3+1.5
+  }));
+
+  // --- RAIN DROPS ---
+  const rainDrops = Array.from({length:80},()=>({
+    x:Math.random(), y:Math.random(),
+    speed:0.003+Math.random()*0.004,
+    len:0.025+Math.random()*0.035,
+    a:0.2+Math.random()*0.35
+  }));
+
+  // --- STORM CELLS ---
+  const stormCells = [
+    {cx:0.2,cy:0.35,r:0.12,phase:0,speed:0.007},
+    {cx:0.75,cy:0.25,r:0.09,phase:1.8,speed:0.009},
+    {cx:0.45,cy:0.7,r:0.07,phase:3.2,speed:0.006},
+  ];
+
+  // --- LIGHTNING ---
+  const lightnings = [];
+  let lightningTimer = 0;
+  function spawnLightning(){
+    const cell = stormCells[Math.floor(Math.random()*stormCells.length)];
+    const sx = cell.cx + (Math.random()-.5)*cell.r*0.6;
+    lightnings.push({
+      x:sx*1, y:cell.cy-.04, life:1,
+      segs: buildLightning(sx,.25+Math.random()*.1,6)
+    });
+  }
+  function buildLightning(x,y,depth){
+    if(depth===0)return [{x,y}];
+    const segs=[];
+    let cx=x,cy=y;
+    for(let i=0;i<depth*2;i++){
+      const nx=cx+(Math.random()-.5)*.04;
+      const ny=cy+.025+Math.random()*.015;
+      segs.push({x:nx,y:ny});
+      cx=nx;cy=ny;
+    }
+    return segs;
+  }
+
+  // --- VOLCANO PARTICLES ---
+  const volcParticles = [];
+  function spawnVolc(){
+    if(volcParticles.length>60)return;
+    for(let i=0;i<3;i++){
+      volcParticles.push({
+        x:0.13+Math.random()*.04, y:0.72+Math.random()*.03,
+        vx:(Math.random()-.5)*.006, vy:-(0.006+Math.random()*.008),
+        life:1, r:2+Math.random()*4
+      });
+    }
+  }
+
+  // --- TSUNAMI WAVES ---
+  const tsunamiWaves = [];
+  let tsunamiTimer = 0;
+  function spawnTsunami(){
+    tsunamiWaves.push({cx:0.5,cy:0.82,r:0,life:1,speed:0.0018});
+  }
+
+  // --- TORNADO ---
+  const tornadoParticles = Array.from({length:50},(_,i)=>({
+    angle:Math.random()*Math.PI*2,
+    radius:0.01+Math.random()*.04,
+    height:Math.random(),
+    speed:.03+Math.random()*.04
+  }));
+
+  // --- SOLAR WIND ---
+  const solarWind = Array.from({length:40},()=>({
+    x:1+Math.random()*.3, y:Math.random(),
+    speed:0.004+Math.random()*.006,
+    life:1, a:0.3+Math.random()*.4
+  }));
+
+  // --- EARTH GLOBE (simple) ---
+  const earthLat = Array.from({length:8},(_,i)=>i*22.5-90);
+  const earthLon = Array.from({length:12},(_,i)=>i*30-180);
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    t += 0.012;
+
+    // ── STARS ──
+    stars.forEach(s=>{
+      const a = s.a * (0.6+0.4*Math.sin(t/s.tw));
+      ctx.beginPath();
+      ctx.arc(s.x*W, s.y*H, s.r, 0, Math.PI*2);
+      ctx.fillStyle=`rgba(180,210,255,${a})`;
+      ctx.fill();
+    });
+
+    // ── EARTH GLOBE (wireframe sphere) ──
+    const ex=W*.5, ey=H*.45, er=Math.min(W,H)*.18;
+    const earthRot = t*.12;
+    ctx.save();
+    ctx.shadowBlur=40; ctx.shadowColor='rgba(0,100,255,0.2)';
+    // globe base glow
+    const globe=ctx.createRadialGradient(ex,ey,er*.3,ex,ey,er);
+    globe.addColorStop(0,'rgba(0,80,180,.12)');
+    globe.addColorStop(1,'rgba(0,20,60,.06)');
+    ctx.fillStyle=globe;
+    ctx.beginPath(); ctx.arc(ex,ey,er,0,Math.PI*2); ctx.fill();
+    // latitude lines
+    for(let la=0;la<8;la++){
+      const latAngle=(la/7-0.5)*Math.PI;
+      const r2=er*Math.cos(latAngle);
+      const yOff=er*Math.sin(latAngle);
+      ctx.beginPath();
+      ctx.ellipse(ex,ey+yOff,r2,r2*.28,0,0,Math.PI*2);
+      ctx.strokeStyle='rgba(0,200,255,0.14)'; ctx.lineWidth=.8; ctx.stroke();
+    }
+    // longitude lines
+    for(let lo=0;lo<12;lo++){
+      const loAngle=lo/12*Math.PI*2+earthRot;
+      const px1=ex+er*Math.sin(loAngle);
+      const px2=ex+er*Math.sin(loAngle+Math.PI*.16);
+      ctx.beginPath();
+      ctx.moveTo(px1,ey-er*.28);
+      ctx.bezierCurveTo(px2*.9+ex*.1,ey,px1*.9+ex*.1,ey,px2,ey+er*.28);
+      ctx.strokeStyle='rgba(0,200,255,0.1)'; ctx.lineWidth=.7; ctx.stroke();
+    }
+    // globe outline
+    ctx.beginPath(); ctx.arc(ex,ey,er,0,Math.PI*2);
+    ctx.strokeStyle='rgba(0,200,255,0.35)'; ctx.lineWidth=1.5; ctx.stroke();
+    ctx.restore();
+
+    // ── SOLAR WIND (from right) ──
+    solarWind.forEach(sw=>{
+      sw.x -= sw.speed;
+      if(sw.x<-.1){ sw.x=1.1+Math.random()*.2; sw.y=Math.random(); }
+      const pulse=0.4+0.6*Math.abs(Math.sin(t*1.5+sw.y*10));
+      ctx.strokeStyle=`rgba(0,255,136,${sw.a*pulse})`;
+      ctx.lineWidth=1.2;
+      ctx.beginPath();
+      ctx.moveTo(sw.x*W,sw.y*H);
+      ctx.lineTo((sw.x+sw.speed*12)*W,sw.y*H);
+      ctx.stroke();
+    });
+
+    // ── STORM CELLS ──
+    stormCells.forEach((sc,i)=>{
+      const pulse=0.4+0.6*Math.abs(Math.sin(t*sc.speed*50+sc.phase));
+      const grad=ctx.createRadialGradient(sc.cx*W,sc.cy*H,0,sc.cx*W,sc.cy*H,sc.r*W);
+      grad.addColorStop(0,`rgba(100,50,200,${.15*pulse})`);
+      grad.addColorStop(.5,`rgba(50,20,150,${.1*pulse})`);
+      grad.addColorStop(1,'rgba(0,0,80,0)');
+      ctx.fillStyle=grad;
+      ctx.beginPath(); ctx.arc(sc.cx*W,sc.cy*H,sc.r*W,0,Math.PI*2); ctx.fill();
+      // rotation swirl
+      for(let j=0;j<6;j++){
+        const a=t*sc.speed*100+j*Math.PI/3+sc.phase;
+        const r1=sc.r*.3*W, r2=sc.r*.8*W;
+        ctx.strokeStyle=`rgba(136,85,255,${.15+.15*pulse})`;
+        ctx.lineWidth=1;
+        ctx.beginPath();
+        ctx.arc(sc.cx*W,sc.cy*H,r1+(r2-r1)*(j/6),.2+j*.9,.9+j*.9);
+        ctx.stroke();
+      }
+    });
+
+    // ── LIGHTNING ──
+    lightningTimer++;
+    if(lightningTimer > 28+Math.random()*40){ spawnLightning(); lightningTimer=0; }
+    for(let i=lightnings.length-1;i>=0;i--){
+      const lt=lightnings[i];
+      lt.life-=.08;
+      if(lt.life<=0){ lightnings.splice(i,1); continue; }
+      ctx.save();
+      ctx.shadowBlur=14; ctx.shadowColor='rgba(255,240,60,0.8)';
+      ctx.strokeStyle=`rgba(255,240,60,${lt.life})`;
+      ctx.lineWidth=1.5;
+      ctx.beginPath();
+      ctx.moveTo(lt.segs[0].x*W, lt.segs[0].y*H);
+      lt.segs.forEach(s=>ctx.lineTo(s.x*W,s.y*H));
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    // ── RAIN ──
+    rainDrops.forEach(rd=>{
+      rd.y+=rd.speed;
+      if(rd.y>1){ rd.y=-rd.len; rd.x=Math.random(); }
+      ctx.strokeStyle=`rgba(150,200,255,${rd.a})`;
+      ctx.lineWidth=1;
+      ctx.beginPath();
+      ctx.moveTo(rd.x*W, rd.y*H);
+      ctx.lineTo(rd.x*W-1, (rd.y+rd.len)*H);
+      ctx.stroke();
+    });
+
+    // ── VOLCANO PARTICLES ──
+    if(t%0.3<0.02) spawnVolc();
+    for(let i=volcParticles.length-1;i>=0;i--){
+      const vp=volcParticles[i];
+      vp.x+=vp.vx; vp.y+=vp.vy; vp.vy+=0.00015; vp.life-=.016;
+      if(vp.life<=0){ volcParticles.splice(i,1); continue; }
+      const heat=vp.life>.5?`rgba(255,${Math.floor(100+120*vp.life)},0,${vp.life})`:
+                           `rgba(${Math.floor(50+100*vp.life)},${Math.floor(20*vp.life)},0,${vp.life*.5})`;
+      ctx.save();
+      ctx.shadowBlur=8; ctx.shadowColor='rgba(255,80,0,.4)';
+      ctx.fillStyle=heat;
+      ctx.beginPath(); ctx.arc(vp.x*W,vp.y*H,vp.r*vp.life,0,Math.PI*2); ctx.fill();
+      ctx.restore();
+    }
+    // volcano cone
+    ctx.fillStyle='rgba(80,40,20,0.5)';
+    ctx.beginPath();
+    ctx.moveTo(.08*W,.92*H); ctx.lineTo(.18*W,.92*H); ctx.lineTo(.13*W,.68*H);
+    ctx.closePath(); ctx.fill();
+    ctx.strokeStyle='rgba(255,100,0,.35)'; ctx.lineWidth=1.5; ctx.stroke();
+
+    // ── TSUNAMI WAVES ──
+    tsunamiTimer++;
+    if(tsunamiTimer>90){ spawnTsunami(); tsunamiTimer=0; }
+    for(let i=tsunamiWaves.length-1;i>=0;i--){
+      const tw=tsunamiWaves[i];
+      tw.r+=tw.speed;
+      tw.life=Math.max(0,1-tw.r/.55);
+      if(tw.life<=0){ tsunamiWaves.splice(i,1); continue; }
+      ctx.strokeStyle=`rgba(0,200,255,${tw.life*.5})`;
+      ctx.lineWidth=1.5+tw.r*3;
+      ctx.beginPath();
+      ctx.ellipse(tw.cx*W,(tw.cy+tw.r*.1)*H,tw.r*W,tw.r*.18*H,0,0,Math.PI);
+      ctx.stroke();
+    }
+
+    // ── TORNADO VORTEX ──
+    const tx=.82*W, ty=.72*H;
+    tornadoParticles.forEach((tp,i)=>{
+      tp.angle+=tp.speed*(1-tp.height*.6);
+      const decay=tp.height;
+      const pr=tp.radius*W*(1-decay*.7);
+      const px=tx+pr*Math.cos(tp.angle);
+      const py=ty-tp.height*.22*H;
+      const a=0.2+0.5*(1-decay);
+      ctx.fillStyle=`rgba(100,70,220,${a})`;
+      ctx.beginPath(); ctx.arc(px,py,1.5,0,Math.PI*2); ctx.fill();
+    });
+    // funnel outline
+    ctx.strokeStyle='rgba(136,85,255,0.35)'; ctx.lineWidth=1;
+    ctx.beginPath();
+    ctx.moveTo(tx-.04*W,ty-.22*H); ctx.lineTo(tx-.005*W,ty);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(tx+.04*W,ty-.22*H); ctx.lineTo(tx+.005*W,ty);
+    ctx.stroke();
+
+    // ── SEA WAVES (bottom) ──
+    ctx.strokeStyle='rgba(0,180,255,0.18)'; ctx.lineWidth=1.2;
+    for(let w=0;w<3;w++){
+      ctx.beginPath();
+      for(let xw=0;xw<=W;xw+=4){
+        const yw=H*.9+Math.sin(xw*.015+t*1.5+w*1.2)*6+w*8;
+        xw===0?ctx.moveTo(xw,yw):ctx.lineTo(xw,yw);
+      }
+      ctx.stroke();
+    }
+
+    // ── OVERLAY VIGNETTE ──
+    const vign=ctx.createRadialGradient(W*.5,H*.5,H*.1,W*.5,H*.5,H*.8);
+    vign.addColorStop(0,'rgba(2,5,8,0)');
+    vign.addColorStop(1,'rgba(2,5,8,0.65)');
+    ctx.fillStyle=vign; ctx.fillRect(0,0,W,H);
+
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+// ── SCROLL REVEAL ──
+const obs=new IntersectionObserver(e=>{
+  e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');obs.unobserve(x.target);}});
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
 </script>
-
 </body>
 </html>
